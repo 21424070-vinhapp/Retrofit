@@ -6,8 +6,9 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.example.retrofit.api.DemoService;
-import com.example.retrofit.model.Example;
-import com.example.retrofit.model.Example2;
+import com.example.retrofit.model.demo1.Example;
+import com.example.retrofit.model.demo2.Example2;
+import com.example.retrofit.model.demo3.Example3;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -25,7 +26,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
-private DemoService demoService;
+    private DemoService demoService;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,12 +55,14 @@ private DemoService demoService;
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
 
-        demoService= retrofit.create(DemoService.class);
+        demoService = retrofit.create(DemoService.class);
 
-        callDemo2();
+//        callDemo1();
+//        callDemo2();
+        callDemo3();
     }
 
-    private void callDemo1(){
+    private void callDemo1() {
         Call<Example> callApi1 = (Call<Example>) demoService.fetchExample1();
         callApi1.enqueue(new Callback<Example>() {
             @Override
@@ -83,11 +87,37 @@ private DemoService demoService;
         });
     }
 
-    private void callDemo2(){
+    private void callDemo2() {
         Call<Example2> callApi2 = demoService.fetchExample2();
         callApi2.enqueue(new Callback<Example2>() {
             @Override
             public void onResponse(Call<Example2> call, Response<Example2> response) {
+                if (response.errorBody() != null) {
+                    try {
+                        Log.d("BBB", "onResponse: " + response.errorBody().string());
+                        return;
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                Example2 example2 = response.body();
+                Log.d("BBB", "onResponse: " + example2);
+            }
+
+            @Override
+            public void onFailure(Call<Example2> call, Throwable t) {
+                Log.d("BBB", "onFailure: " + t.getMessage());
+            }
+        });
+    }
+
+    private void callDemo3() {
+        Call<Example3> callApi3=demoService.fetchExample3();
+
+        callApi3.enqueue(new Callback<Example3>() {
+            @Override
+            public void onResponse(Call<Example3> call, Response<Example3> response) {
                 if(response.errorBody()!=null)
                 {
                     try {
@@ -98,13 +128,13 @@ private DemoService demoService;
                     }
                 }
 
-                Example2 example2=response.body();
-                Log.d("BBB", "onResponse: "+example2);
+                Example3 example3=response.body();
+                Log.d("BBB", "onResponse: "+example3);
             }
 
             @Override
-            public void onFailure(Call<Example2> call, Throwable t) {
-
+            public void onFailure(Call<Example3> call, Throwable t) {
+                Log.d("BBB", "onFailure: " + t.getMessage());
             }
         });
     }

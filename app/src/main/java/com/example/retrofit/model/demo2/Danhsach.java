@@ -1,4 +1,4 @@
-package com.example.retrofit.model;
+package com.example.retrofit.model.demo2;
 
 public class Danhsach {
 

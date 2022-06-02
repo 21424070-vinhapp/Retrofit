@@ -1,4 +1,6 @@
-package com.example.retrofit.model;
+package com.example.retrofit.model.demo2;
+
+import com.example.retrofit.model.demo2.Danhsach;
 
 import java.util.List;
 

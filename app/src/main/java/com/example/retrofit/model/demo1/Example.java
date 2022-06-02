@@ -1,4 +1,4 @@
-package com.example.retrofit.model;
+package com.example.retrofit.model.demo1;
 
 
 import com.google.gson.annotations.Expose;
