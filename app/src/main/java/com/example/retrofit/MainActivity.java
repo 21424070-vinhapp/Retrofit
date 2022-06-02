@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Example> call, Throwable t) {
-
+                Log.d("BBB", "onFailure: " + t.getMessage());
             }
         });
     }
