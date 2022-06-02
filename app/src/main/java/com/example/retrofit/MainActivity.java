@@ -10,6 +10,7 @@ import com.example.retrofit.model.demo1.Example;
 import com.example.retrofit.model.demo2.Example2;
 import com.example.retrofit.model.demo3.Example3;
 import com.example.retrofit.model.demo4.Example4;
+import com.example.retrofit.model.demo5.Example5;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -63,7 +64,8 @@ public class MainActivity extends AppCompatActivity {
 //        callDemo1();
 //        callDemo2();
 //        callDemo3();
-        callDemo4();
+//        callDemo4();
+        callDemo5();
     }
 
     private void callDemo1() {
@@ -163,6 +165,32 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<Example4>> call, Throwable t) {
+                Log.d("BBB", "onFailure: " + t.getMessage());
+            }
+        });
+    }
+
+    private void callDemo5() {
+        Call<List<Example5>> callApi4 = demoService.fetchExample5();
+        callApi4.enqueue(new Callback<List<Example5>>() {
+            @Override
+            public void onResponse(Call<List<Example5>> call, Response<List<Example5>> response) {
+                if (response.errorBody() != null) {
+                    try {
+                        Log.d(TAG, "onResponse: "+response.errorBody().string());
+                        return;
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                List<Example5> lstExample5=response.body();
+                for (Example5 example5: lstExample5) {
+                    Log.d(TAG, "onResponse: "+example5);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Example5>> call, Throwable t) {
                 Log.d("BBB", "onFailure: " + t.getMessage());
             }
         });

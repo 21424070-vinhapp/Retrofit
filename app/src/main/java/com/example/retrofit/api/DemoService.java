@@ -4,6 +4,7 @@ import com.example.retrofit.model.demo1.Example;
 import com.example.retrofit.model.demo2.Example2;
 import com.example.retrofit.model.demo3.Example3;
 import com.example.retrofit.model.demo4.Example4;
+import com.example.retrofit.model.demo5.Example5;
 
 import java.util.List;
 
@@ -23,4 +24,7 @@ public interface DemoService {
 
     @GET("KhoaPhamTraining/json/tien/demo4.json")
     Call<List<Example4>> fetchExample4();
+
+    @GET("KhoaPhamTraining/json/tien/demo5.json")
+    Call<List<Example5>> fetchExample5();
 }
